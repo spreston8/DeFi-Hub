@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const darkMode = require('/tailwind.config').darkMode;
 
 function ThemeSwitch() {
@@ -11,9 +11,9 @@ function ThemeSwitch() {
       : window.document.documentElement;
   const [dark, setDark] = useState(true);
 
-  // useEffect(() => {
-  //   window.document.documentElement.classList.add('dark');
-  // }, []);
+  useEffect(() => {
+    window.document.documentElement.classList.add('dark');
+  }, []);
 
   if (!darkMode) {
     return null;
