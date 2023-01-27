@@ -2,7 +2,7 @@ const headerNavLinks = [
   { href: '/nft', title: 'NFT' },
   { href: '/stake', title: 'Stake' },
   { href: '/swap', title: 'Swap' },
-  { href: '/yield', title: 'Yield' },
+  { href: '/pool', title: 'Pool' },
 ];
 
 export default headerNavLinks;
