@@ -1,5 +1,6 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
+import { Web3ModalComponent } from '@components/Web3Modal';
 
 export default function nft() {
   return (
@@ -10,6 +11,8 @@ export default function nft() {
         url={siteMetadata.siteUrl}
         previewPath=""
       />
+
+      <Web3ModalComponent />
     </>
   );
 }
