@@ -1,54 +1,79 @@
 import headerNavLinks from '@data/headerNavLinks';
-// import Logo from '../public/static/img/ai_logo.svg';
-// import LogoWhite from '../public/static/img/ai_logo_white.svg';
-import SectionContainer from './SectionContainer';
 import Footer from './Footer';
 import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import Link from 'next/link';
 import siteMetadata from '@data/siteMetadata';
+import { providers } from 'ethers';
+// import { useCallback, useEffect, useReducer, useState } from 'react';
+// import { initialState, reducer } from '@lib/Web3Modal';
+// import providerContext from '@lib/ProviderContext';
+// import { ethers } from 'ethers';
 
 type HeaderLinks = {
   title: string;
   href: string;
 };
 
-function LayoutWrapper({ children }) {
+function LayoutWrapper({
+  children,
+  connect,
+  disconnect,
+  web3Provider,
+  address,
+  network,
+}) {
   return (
-    <SectionContainer>
-      <div className="flex flex-col">
-        <header className="flex items-center justify-between py-4 sm:py-10">
-          <Link href="/">
-            <div className="flex items-center space-x-6">
-              {/* <Logo className="dark:hidden w-20" />
-              <LogoWhite className="hidden dark:block w-20" /> */}
-              <h1 className="text-3xl">{siteMetadata.headerTitle}</h1>
-            </div>
-          </Link>
-          <div className="flex items-center text-base">
-            <div className="hidden sm:flex items-center">
-              {headerNavLinks.map((link: HeaderLinks) => (
-                <Link
-                  key={link.title}
-                  href={link.href}
-                  className="font-medium text-[#5F5F5F] sm:p-4 dark:text-gray-100 hover:text-blue-400 dark:hover:text-blue-400"
-                >
-                  {link.title}
-                </Link>
-              ))}
-            </div>
-            <div className="flex">
-              <ThemeSwitch />
-            </div>
-            <div className="pt-1">
-              <MobileNav />
-            </div>
+    <div className="overflow-x-hidden max-w-lg xs:max-w-xl md:max-w-3xl lg:max-w-7xl xl:max-w-[80%] px-4 mx-auto md:px-6 xl:px-0">
+      <header className="flex items-center justify-between bg-slate-800 rounded-3xl mt-4 py-4 px-6">
+        <Link href="/">
+          <h1 className="text-3xl mb-1 mr-6">{siteMetadata.headerTitle}</h1>
+        </Link>
+        <div className="hidden sm:flex">
+          {headerNavLinks.map((link: HeaderLinks) => (
+            <Link
+              key={link.title}
+              href={link.href}
+              className="font-medium text-[#5F5F5F] sm:p-4 dark:text-gray-100 hover:text-blue-400 dark:hover:text-blue-400"
+            >
+              {link.title}
+            </Link>
+          ))}
+        </div>
+        <div className="flex items-center">
+          <p className="pr-4 text-green-500">{network}</p>
+          <p className="pr-4 text-blue-500">{address}</p>
+          {web3Provider ? (
+            <button
+              className={
+                'text-md px-3 py-2 rounded-lg text-white dark:text-black bg-[#0095D4] dark:bg-[#0095D4]'
+              }
+              onClick={disconnect}
+            >
+              Disconnect
+            </button>
+          ) : (
+            <button
+              className={
+                'text-md px-3 py-2 rounded-lg text-white dark:text-black bg-[#0095D4] dark:bg-[#0095D4]'
+              }
+              onClick={connect}
+            >
+              Connect
+            </button>
+          )}
+          <div className="flex">
+            <ThemeSwitch />
           </div>
-        </header>
-        <main className="mb-auto">{children}</main>
-        <Footer />
+        </div>
+      </header>
+      <div className="pt-1">
+        <MobileNav />
       </div>
-    </SectionContainer>
+
+      <main className="mb-auto">{children}</main>
+      <Footer />
+    </div>
   );
 }
 

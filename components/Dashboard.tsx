@@ -10,10 +10,7 @@ import { initialState, reducer } from '@lib/Web3Modal';
 import siteMetadata from '@data/siteMetadata';
 import type { NFTMetadata, Web3Params } from '@data/web3.types';
 
-export const Web3ModalComponent = (props: {
-  web3Params: Web3Params;
-}): JSX.Element => {
-  const { web3Params } = props;
+export const Dashboard = (): JSX.Element => {
   // const [nftCollection, setNftCollection] = useState<NFTMetadata[]>([]);
   // const [loadingCollection, setLoadingCollection] = useState(false);
   const [network, setNetwork] = useState('Not Recognized');
@@ -137,6 +134,7 @@ export const Web3ModalComponent = (props: {
               </p>
             </button>
           </div>
+          <p className="pt-6">Network: {network}</p>
 
           {/* {network === web3Params.defaultNetwork ? (
             <>

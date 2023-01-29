@@ -1,6 +1,5 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
-import { Web3ModalComponent } from '@components/Web3Modal';
 
 export default function nft() {
   return (
@@ -12,7 +11,11 @@ export default function nft() {
         previewPath=""
       />
 
-      <Web3ModalComponent />
+      <div className="flex flex-col items-center justify-center mt-12">
+        <h1 className="text-2xl text-[#858585] dark:text-gray-400">
+          Current Wallet Connected
+        </h1>
+      </div>
     </>
   );
 }
