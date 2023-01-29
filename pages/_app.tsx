@@ -1,21 +1,54 @@
 import '../css/tailwind.css';
 
+import { useCallback, useEffect, useReducer, useState } from 'react';
+import { ethers } from 'ethers';
 import { DefaultSeo } from 'next-seo';
+import type { AppProps } from 'next/app';
 import Head from 'next/head.js';
 
 import { SEO } from '@components/SEO';
 import LayoutWrapper from '@components/LayoutWrapper';
-
-import { useCallback, useEffect, useReducer, useState } from 'react';
-import { initialState, reducer } from '@lib/Web3Modal';
 import providerContext from '@lib/ProviderContext';
-import { ethers } from 'ethers';
-import { AppProps } from 'next/app';
+import type { StateType, ActionType } from '@data/types';
+
+const initialState: StateType = {
+  provider: undefined,
+  web3Provider: undefined,
+  address: undefined,
+  chainId: undefined,
+};
+
+function reducer(state: StateType, action: ActionType): StateType {
+  switch (action.type) {
+    case 'SET_WEB3_PROVIDER':
+      return {
+        ...state,
+        provider: action.provider,
+        web3Provider: action.web3Provider,
+        address: action.address,
+        chainId: action.chainId,
+      };
+    case 'SET_ADDRESS':
+      return {
+        ...state,
+        address: action.address,
+      };
+    case 'SET_CHAIN_ID':
+      return {
+        ...state,
+        chainId: action.chainId,
+      };
+    case 'RESET_WEB3_PROVIDER':
+      return initialState;
+    default:
+      throw new Error();
+  }
+}
 
 function _App({ Component, pageProps }: AppProps) {
-  const [network, setNetwork] = useState('Not Recognized');
   const [state, dispatch] = useReducer(reducer, initialState);
   const { provider, web3Provider, address, chainId } = state;
+  const [network, setNetwork] = useState('Not Recognized');
   const web3Modal = providerContext.getModal();
 
   const connect = useCallback(async function () {

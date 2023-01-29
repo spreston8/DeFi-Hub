@@ -1,10 +1,8 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
-import { Dashboard } from '@components/Dashboard';
-import { providers } from 'ethers';
+import type { Web3Provider } from '@data/types';
 
-export default function Home({ web3Provider }) {
-  // const { web3Provider } = props;
+export default function Home({ web3Provider }: Web3Provider) {
   return (
     <>
       <PageSeo

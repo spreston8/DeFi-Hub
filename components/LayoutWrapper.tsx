@@ -1,19 +1,10 @@
-import headerNavLinks from '@data/headerNavLinks';
+import Link from 'next/link';
 import Footer from './Footer';
 import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
-import Link from 'next/link';
+import headerNavLinks from '@data/headerNavLinks';
 import siteMetadata from '@data/siteMetadata';
-import { providers } from 'ethers';
-// import { useCallback, useEffect, useReducer, useState } from 'react';
-// import { initialState, reducer } from '@lib/Web3Modal';
-// import providerContext from '@lib/ProviderContext';
-// import { ethers } from 'ethers';
-
-type HeaderLinks = {
-  title: string;
-  href: string;
-};
+import type { HeaderLinks } from '@data/types';
 
 function LayoutWrapper({
   children,

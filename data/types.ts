@@ -1,3 +1,5 @@
+import { providers } from 'ethers';
+
 // ToDo:  keep these typing up to date from Moralis API changes
 export type NFTMetadata = {
   name: string;
@@ -28,7 +30,7 @@ export type NFTMetadata = {
 
 export type StateType = {
   provider?: any;
-  web3Provider?: any;
+  web3Provider?: providers.Web3Provider;
   address?: string;
   chainId?: number;
 };
@@ -53,7 +55,11 @@ export type ActionType =
       type: 'RESET_WEB3_PROVIDER';
     };
 
-export type Web3Params = {
-  defaultNetwork: string;
-  contractAddress: string;
+export type Web3Provider = {
+  web3Provider: providers.Web3Provider;
+};
+
+export type HeaderLinks = {
+  title: string;
+  href: string;
 };

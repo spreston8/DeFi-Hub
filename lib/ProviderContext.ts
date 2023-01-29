@@ -1,6 +1,6 @@
-import { providerOptions } from './ProviderOptions';
 import Web3Modal from 'web3modal';
 import { providers } from 'ethers';
+import { providerOptions } from './ProviderOptions';
 
 let web3Modal: Web3Modal;
 if (typeof window !== 'undefined') {
