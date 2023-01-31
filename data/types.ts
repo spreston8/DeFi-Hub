@@ -55,8 +55,18 @@ export type ActionType =
       type: 'RESET_WEB3_PROVIDER';
     };
 
-export type Web3Provider = {
+export type Web3Params = {
   web3Provider: providers.Web3Provider;
+  chainId?: number
+};
+
+export type LayoutWrapperParams = {
+  children: any;
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
+  web3Provider?: providers.Web3Provider;
+  address?: string;
+  chainId?: number;
 };
 
 export type HeaderLinks = {

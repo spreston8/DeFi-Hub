@@ -10,6 +10,12 @@ export default function swap() {
         url={siteMetadata.siteUrl}
         previewPath=""
       />
+
+      <div className="flex flex-col items-center justify-center mt-12">
+        <h1 className="text-2xl text-[#858585] dark:text-gray-400">
+          Account Overview
+        </h1>
+      </div>
     </>
   );
 }

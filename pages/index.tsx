@@ -1,8 +1,9 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
-import type { Web3Provider } from '@data/types';
+import Balance from '@components/Balance';
+import type { Web3Params } from '@data/types';
 
-export default function Home({ web3Provider }: Web3Provider) {
+export default function Home({ web3Provider, chainId }: Web3Params) {
   return (
     <>
       <PageSeo
@@ -14,9 +15,9 @@ export default function Home({ web3Provider }: Web3Provider) {
 
       <div className="flex flex-col items-center justify-center mt-12">
         <h1 className="text-2xl text-[#858585] dark:text-gray-400">
-          Current Wallet Connected
+          Account Overview
         </h1>
-        <p>{web3Provider ? web3Provider.network.name : <></>}</p>
+        <Balance web3Provider={web3Provider} chainId={chainId} />
       </div>
     </>
   );

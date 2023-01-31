@@ -1,7 +1,6 @@
 import '../css/tailwind.css';
 
-import { useCallback, useEffect, useReducer, useState } from 'react';
-import { ethers } from 'ethers';
+import { useCallback, useEffect, useReducer } from 'react';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Head from 'next/head.js';
@@ -48,7 +47,6 @@ function reducer(state: StateType, action: ActionType): StateType {
 function _App({ Component, pageProps }: AppProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { provider, web3Provider, address, chainId } = state;
-  const [network, setNetwork] = useState('Not Recognized');
   const web3Modal = providerContext.getModal();
 
   const connect = useCallback(async function () {
@@ -103,9 +101,12 @@ function _App({ Component, pageProps }: AppProps) {
         });
       };
 
-      const handleChainChanged = (chainId: string) => {
+      const handleChainChanged = (chainId: number) => {
         console.log('chainIdChanged', chainId);
-        disconnect();
+        dispatch({
+          type: 'SET_CHAIN_ID',
+          chainId: chainId,
+        });
       };
 
       const handleDisconnect = (error: { code: number; message: string }) => {
@@ -116,11 +117,6 @@ function _App({ Component, pageProps }: AppProps) {
       provider.on('accountsChanged', handleAccountsChanged);
       provider.on('chainChanged', handleChainChanged);
       provider.on('disconnect', handleDisconnect);
-
-      if (address && chainId) {
-        const network = ethers.providers.getNetwork(chainId);
-        setNetwork(network.name);
-      }
 
       // Subscription Cleanup
       return () => {
@@ -144,9 +140,13 @@ function _App({ Component, pageProps }: AppProps) {
         disconnect={disconnect}
         web3Provider={web3Provider}
         address={address}
-        network={network}
+        chainId={chainId}
       >
-        <Component {...pageProps} web3Provider={web3Provider} />
+        <Component
+          {...pageProps}
+          web3Provider={web3Provider}
+          chainId={chainId}
+        />
       </LayoutWrapper>
     </>
   );

@@ -4,7 +4,7 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import headerNavLinks from '@data/headerNavLinks';
 import siteMetadata from '@data/siteMetadata';
-import type { HeaderLinks } from '@data/types';
+import type { HeaderLinks, LayoutWrapperParams } from '@data/types';
 
 function LayoutWrapper({
   children,
@@ -12,8 +12,8 @@ function LayoutWrapper({
   disconnect,
   web3Provider,
   address,
-  network,
-}) {
+  chainId,
+}: LayoutWrapperParams) {
   return (
     <div className="overflow-x-hidden max-w-lg xs:max-w-xl md:max-w-3xl lg:max-w-7xl xl:max-w-[80%] px-4 mx-auto md:px-6 xl:px-0">
       <header className="flex items-center justify-between bg-slate-800 rounded-3xl mt-4 py-4 px-6">
@@ -32,7 +32,7 @@ function LayoutWrapper({
           ))}
         </div>
         <div className="flex items-center">
-          <p className="pr-4 text-green-500">{network}</p>
+          <p className="pr-4 text-green-500">{chainId}</p>
           <p className="pr-4 text-blue-500">{address}</p>
           {web3Provider ? (
             <button
