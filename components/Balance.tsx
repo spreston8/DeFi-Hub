@@ -22,9 +22,8 @@ export default function Balance({ web3Provider, chainId }: Web3Params) {
 
   return (
     <>
-      <div>
+      <div className="pt-6">
         <p>Account Balance: {balance}</p>
-        <p>chain id: {chainId}</p>
       </div>
     </>
   );
