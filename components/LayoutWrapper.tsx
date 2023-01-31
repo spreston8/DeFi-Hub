@@ -34,7 +34,7 @@ function LayoutWrapper({
         </div>
         <div className="flex items-center">
           <p className="pr-4 text-green-500">
-            {networkName(parseInt(chainId))}
+            {networkName(parseInt(chainId ? chainId.toString() : '0'))}
           </p>
           <p className="pr-4 text-blue-500">{address}</p>
           {web3Provider ? (
