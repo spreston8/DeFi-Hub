@@ -5,7 +5,8 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "start": "next start",
+    "swap": "ts-node ./lib/swap.ts"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,13 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.8",
+    "@thorswap-lib/cross-chain-api-sdk": "^0.1.31",
     "@walletconnect/web3-provider": "^1.8.0",
+    "@xchainjs/xchain-client": "^0.13.5",
+    "@xchainjs/xchain-thorchain": "^0.27.8",
+    "@xchainjs/xchain-thorchain-amm": "^0.3.14",
+    "@xchainjs/xchain-thorchain-query": "^0.1.16",
+    "@xchainjs/xchain-util": "^0.12.0",
     "autoprefixer": "^10.4.13",
     "ethers": "^5.7.2",
     "next": "^13.0.7",
@@ -39,6 +46,7 @@
     "@types/react": "^18.0.27",
     "file-loader": "^6.2.0",
     "prop-types": "^15.8.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0"
   }
