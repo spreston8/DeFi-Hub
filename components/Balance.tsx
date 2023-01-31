@@ -18,7 +18,7 @@ export default function Balance({ web3Provider, chainId }: Web3Params) {
     } else {
       setBalance('0');
     }
-  }, [web3Provider]);
+  }, [web3Provider, chainId]);
 
   return (
     <>

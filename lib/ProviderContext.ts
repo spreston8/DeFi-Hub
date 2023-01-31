@@ -23,7 +23,10 @@ async function getDefaultWeb3Provider() {
   // We plug the initial `provider` into ethers.js and get back
   // a Web3Provider. This will add on methods from ethers.js and
   // event listeners such as `.on()` will be different.
-  const web3Provider = new providers.Web3Provider(await getDefaultProvider());
+  const web3Provider = new providers.Web3Provider(
+    await getDefaultProvider(),
+    'any'
+  );
   return web3Provider;
 }
 
