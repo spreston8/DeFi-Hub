@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Web3Params, NFTMetadata } from '@data/types';
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
-import NftCard from '@components/NFTCard';
+import NftCard from '@components/NftCard';
 import { getWalletNfts } from '@lib/WalletNFTs';
 
 export default function nft({ web3Provider, chainIdHex }: Web3Params) {
@@ -38,7 +38,7 @@ export default function nft({ web3Provider, chainIdHex }: Web3Params) {
         <h1 className="text-2xl text-[#858585] dark:text-gray-400">My NFTs</h1>
       </div>
 
-      <div className=" text-center pt-12">
+      <div className="flex flex-col items-center justify-center pt-12">
         {loadingCollection && <p>Fetching your NFT(s)...</p>}
         {nftCollection && (
           <>
