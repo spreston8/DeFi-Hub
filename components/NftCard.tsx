@@ -17,6 +17,7 @@ export default function NftCard(props: { nft: NFTMetadata }) {
                   alt={`NFT Image for token ID: ${nft.token_id}`}
                   layout="fill"
                   objectFit="cover"
+                  priority={true}
                 />
               </>
             ) : (

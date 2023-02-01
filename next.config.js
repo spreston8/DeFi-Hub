@@ -9,7 +9,7 @@ const nextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   // staticPageGenerationTimeout: 300,
   images: {
-    domains: ['ipfs.io', ''],
+    domains: ['ipfs.io'],
   },
 
   webpack: (config) => {

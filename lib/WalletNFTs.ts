@@ -47,7 +47,10 @@ export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
         const jsonDescription = JSON.parse(currNFT.metadata);
         currNFTMetadata.name = jsonDescription.name;
         currNFTMetadata.description = jsonDescription.description;
-        currNFTMetadata.image = jsonDescription.image;
+        currNFTMetadata.image = jsonDescription.image.replace(
+          'ipfs://',
+          'https://ipfs.io/ipfs/'
+        );
         currNFTMetadata.attributes = jsonDescription.attributes;
       } else {
         currNFTMetadata.name = 'nft name not provided';
@@ -100,7 +103,10 @@ export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
             const jsonDescription = JSON.parse(currNFT.metadata);
             currNFTMetadata.name = jsonDescription.name;
             currNFTMetadata.description = jsonDescription.description;
-            currNFTMetadata.image = jsonDescription.image;
+            currNFTMetadata.image = jsonDescription.image.replace(
+              'ipfs://',
+              'https://ipfs.io/ipfs/'
+            );
             currNFTMetadata.attributes = jsonDescription.attributes;
           } else {
             currNFTMetadata.name = 'nft name not provided';
