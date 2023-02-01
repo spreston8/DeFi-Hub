@@ -4,7 +4,7 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import headerNavLinks from '@data/headerNavLinks';
 import siteMetadata from '@data/siteMetadata';
-import networkName from '@lib/Network';
+import getNetworkName from '@lib/Network';
 import type { HeaderLinks, LayoutWrapperParams } from '@data/types';
 
 function LayoutWrapper({
@@ -13,7 +13,7 @@ function LayoutWrapper({
   disconnect,
   web3Provider,
   address,
-  chainId,
+  chainIdHex,
 }: LayoutWrapperParams) {
   return (
     <div className="overflow-x-hidden max-w-lg xs:max-w-xl md:max-w-3xl lg:max-w-7xl xl:max-w-[80%] px-4 mx-auto md:px-6 xl:px-0">
@@ -34,7 +34,7 @@ function LayoutWrapper({
         </div>
         <div className="flex items-center">
           <p className="pr-4 text-green-500">
-            {networkName(parseInt(chainId ? chainId.toString() : '0'))}
+            {getNetworkName(parseInt(chainIdHex ? chainIdHex.toString() : '0'))}
           </p>
           <p className="pr-4 text-blue-500">{address}</p>
           {web3Provider ? (
