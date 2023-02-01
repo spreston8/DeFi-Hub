@@ -18,7 +18,6 @@ export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
   });
 
   const nfts = initialMoralisResponse.toJSON();
-  console.log(nfts);
 
   // if there are owned nfts, add to collection
   if (nfts.result) {
