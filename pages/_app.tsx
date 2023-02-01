@@ -14,7 +14,7 @@ const initialState: StateType = {
   provider: undefined,
   web3Provider: undefined,
   address: undefined,
-  chainId: undefined,
+  chainIdHex: undefined,
 };
 
 function reducer(state: StateType, action: ActionType): StateType {
@@ -25,7 +25,7 @@ function reducer(state: StateType, action: ActionType): StateType {
         provider: action.provider,
         web3Provider: action.web3Provider,
         address: action.address,
-        chainId: action.chainId,
+        chainIdHex: action.chainId,
       };
     case 'SET_ADDRESS':
       return {
@@ -35,7 +35,7 @@ function reducer(state: StateType, action: ActionType): StateType {
     case 'SET_CHAIN_ID':
       return {
         ...state,
-        chainId: action.chainId,
+        chainIdHex: action.chainId,
       };
     case 'RESET_WEB3_PROVIDER':
       return initialState;
@@ -46,7 +46,7 @@ function reducer(state: StateType, action: ActionType): StateType {
 
 function _App({ Component, pageProps }: AppProps) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { provider, web3Provider, address, chainId } = state;
+  const { provider, web3Provider, address, chainIdHex } = state;
   const web3Modal = providerContext.getModal();
 
   const connect = useCallback(async function () {
@@ -82,11 +82,11 @@ function _App({ Component, pageProps }: AppProps) {
   );
 
   // Auto connect to the cached provider
-  useEffect(() => {
-    if (web3Modal.cachedProvider) {
-      connect();
-    }
-  }, [connect]);
+  // useEffect(() => {
+  //   if (web3Modal.cachedProvider) {
+  //     connect();
+  //   }
+  // }, [connect]);
 
   // A `provider` should come with EIP-1193 events. We'll listen for those events
   // here so that when a user switches accounts or networks, we can update the
@@ -140,12 +140,12 @@ function _App({ Component, pageProps }: AppProps) {
         disconnect={disconnect}
         web3Provider={web3Provider}
         address={address}
-        chainId={chainId}
+        chainIdHex={chainIdHex}
       >
         <Component
           {...pageProps}
           web3Provider={web3Provider}
-          chainId={chainId}
+          chainIdHex={chainIdHex}
         />
       </LayoutWrapper>
     </>

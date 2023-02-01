@@ -1,38 +1,23 @@
 import { providers } from 'ethers';
 
-// ToDo:  keep these typing up to date from Moralis API changes
 export type NFTMetadata = {
   name: string;
   description: string;
   image: string;
-  attributes: { object: object };
-  contractAddress: string;
-  token_id?: string | number;
-  tokenId: string | number;
-  tokenID?: string | number;
-  token_hash?: string;
-  number?: string;
-  contractStandard?: string;
-  token_address?: string;
-  tokenAddress?: string;
-  contract_type?: string;
-  owner_of?: string;
-  block_number?: string;
-  block_number_minted?: string;
-  token_uri?: string | undefined;
-  metadata?: string | undefined;
-  amount?: string | undefined;
-  symbol?: string;
-  last_token_uri_sync?: string;
-  last_metadata_sync?: string;
-  mintTimestamp: number;
+  attributes: object | string;
+  token_id: string;
+  token_hash: string;
+  contract_type: string;
+  contract_name: string;
+  token_address: string;
+  symbol: string;
 };
 
 export type StateType = {
   provider?: any;
   web3Provider?: providers.Web3Provider;
   address?: string;
-  chainId?: number;
+  chainIdHex?: number;
 };
 
 export type ActionType =
@@ -41,7 +26,7 @@ export type ActionType =
       provider?: StateType['provider'];
       web3Provider?: StateType['web3Provider'];
       address?: StateType['address'];
-      chainId?: StateType['chainId'];
+      chainId?: StateType['chainIdHex'];
     }
   | {
       type: 'SET_ADDRESS';
@@ -49,7 +34,7 @@ export type ActionType =
     }
   | {
       type: 'SET_CHAIN_ID';
-      chainId?: StateType['chainId'];
+      chainId?: StateType['chainIdHex'];
     }
   | {
       type: 'RESET_WEB3_PROVIDER';
@@ -57,7 +42,7 @@ export type ActionType =
 
 export type Web3Params = {
   web3Provider: providers.Web3Provider;
-  chainId?: number
+  chainIdHex?: number;
 };
 
 export type LayoutWrapperParams = {
@@ -66,7 +51,7 @@ export type LayoutWrapperParams = {
   disconnect: () => Promise<void>;
   web3Provider?: providers.Web3Provider;
   address?: string;
-  chainId?: number;
+  chainIdHex?: number;
 };
 
 export type HeaderLinks = {

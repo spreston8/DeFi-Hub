@@ -8,6 +8,10 @@ const nextConfig = {
   trailingSlash: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   // staticPageGenerationTimeout: 300,
+  images: {
+    domains: ['ipfs.io', ''],
+  },
+
   webpack: (config) => {
     config.module.rules.push(
       {

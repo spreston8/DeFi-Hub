@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import type { Web3Params } from '@data/types';
 
-export default function Balance({ web3Provider, chainId }: Web3Params) {
+export default function Balance({ web3Provider, chainIdHex }: Web3Params) {
   const [balance, setBalance] = useState('0');
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Balance({ web3Provider, chainId }: Web3Params) {
     } else {
       setBalance('0');
     }
-  }, [web3Provider, chainId]);
+  }, [web3Provider, chainIdHex]);
 
   return (
     <>

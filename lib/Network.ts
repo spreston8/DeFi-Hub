@@ -1,5 +1,5 @@
-export default function networkName(chainId: number) {
-  switch (chainId) {
+export default function getNetworkName(chainIdHex: number) {
+  switch (chainIdHex) {
     case 1:
       return 'Ethereum';
     case 5:

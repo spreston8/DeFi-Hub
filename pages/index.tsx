@@ -3,7 +3,7 @@ import { PageSeo } from '@components/SEO';
 import Balance from '@components/Balance';
 import type { Web3Params } from '@data/types';
 
-export default function Home({ web3Provider, chainId }: Web3Params) {
+export default function Home({ web3Provider, chainIdHex }: Web3Params) {
   return (
     <>
       <PageSeo
@@ -17,7 +17,7 @@ export default function Home({ web3Provider, chainId }: Web3Params) {
         <h1 className="text-2xl text-[#858585] dark:text-gray-400">
           Account Overview
         </h1>
-        <Balance web3Provider={web3Provider} chainId={chainId} />
+        <Balance web3Provider={web3Provider} chainIdHex={chainIdHex} />
       </div>
     </>
   );
