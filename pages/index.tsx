@@ -3,21 +3,28 @@ import { ethers } from 'ethers';
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
 import getNetworkInfo from '@lib/Network';
+import getTotalNFTs from '@utils/TotalNFTs';
 import type { Web3Params } from '@data/types';
+import Link from 'next/link';
 
 export default function Home({ web3Provider, chainIdHex }: Web3Params) {
   const [balance, setBalance] = useState('0');
+  const [totalNFTs, setTotalNFTs] = useState(0);
 
   useEffect(() => {
-    if (web3Provider) {
+    if (web3Provider && chainIdHex) {
       const signer = web3Provider.getSigner();
 
-      const getBalance = async () => {
+      const doAsyncFunction = async () => {
         const _balance = await signer.getBalance();
         setBalance(ethers.utils.formatEther(_balance));
+
+        const address = await signer.getAddress();
+        const _totalNFTs = await getTotalNFTs(address, chainIdHex);
+        setTotalNFTs(_totalNFTs);
       };
 
-      getBalance();
+      doAsyncFunction();
     } else {
       setBalance('0');
     }
@@ -48,6 +55,12 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
               }
             </>
           </h1>
+        </div>
+
+        <div className="flex bg-gray-600 mb-20 py-4 rounded-xl">
+          <Link href="/nft" className="text-3xl px-20 text-center hover:text-blue-500">
+            {totalNFTs} Owned NFTs
+          </Link>
         </div>
 
         {/* <div className="grid grid-cols-2 gap-10 pt-12 pb-6 w-full px-10">

@@ -3,7 +3,7 @@ import type { Web3Params, NFTMetadata } from '@data/types';
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
 import NftCard from '@components/NftCard';
-import { getWalletNfts } from '@lib/WalletNFTs';
+import { getWalletNfts } from '@utils/WalletNFTs';
 
 export default function nft({ web3Provider, chainIdHex }: Web3Params) {
   const [nftCollection, setNftCollection] = useState<NFTMetadata[]>([]);
