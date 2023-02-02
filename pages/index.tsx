@@ -6,11 +6,13 @@ import { PageSeo } from '@components/SEO';
 import getNetworkInfo from '@lib/Network';
 import getWalletNFTCollections from '@utils/WalletNFTCollections';
 import getTotalNFTs from '@utils/TotalNFTs';
-import type { Web3Params, NFTCollection } from '@data/types';
+import type { Web3Params, NFTCollection, NFTMetadata } from '@data/types';
+import getWalletNFTs from '@utils/WalletNFTs';
 
 export default function Home({ web3Provider, chainIdHex }: Web3Params) {
   const [balance, setBalance] = useState('0');
   const [totalNFTs, setTotalNFTs] = useState(0);
+  const [NFTs, setNFTs] = useState<NFTMetadata[]>([]);
   const [NFTCollections, setNFTCollections] = useState<NFTCollection[]>([]);
 
   useEffect(() => {
@@ -24,6 +26,9 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
         const address = await signer.getAddress();
         const _totalNFTs = await getTotalNFTs(address, chainIdHex);
         setTotalNFTs(_totalNFTs);
+
+        const walletNFTS = await getWalletNFTs(address, chainIdHex);
+        setNFTs(walletNFTS);
 
         const _NFTCollections = await getWalletNFTCollections(
           address,
@@ -65,37 +70,46 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
           </h1>
         </div>
 
-        <div className="flex bg-gray-600 mb-12 py-4 rounded-xl">
+        <div className="flex flex-col bg-gray-600 mb-12 py-4 rounded-xl">
           <Link
             href="/nft"
-            className="text-3xl px-20 text-center hover:text-blue-500"
+            className="text-3xl text-center hover:text-blue-500"
           >
             {totalNFTs} Owned NFTs
           </Link>
-        </div>
 
-        {NFTCollections && (
-          <>
-            {NFTCollections.map((collection: NFTCollection) => (
-              <React.Fragment key={collection.token_address}>
-                <div className="flex bg-gray-600 mb-20 py-4 rounded-xl">
-                  <h1 className="text-3xl px-20 text-center hover:text-blue-500">
-                    {collection.collection_name}
-                  </h1>
-                </div>
-              </React.Fragment>
-            ))}
-          </>
-        )}
+          <span className="p-0.5 bg-purple-600 mx-10 my-4"></span>
 
-        {/* <div className="grid grid-cols-2 gap-10 pt-12 pb-6 w-full px-10">
-          <div className="bg-gray-600 rounded-xl h-80">
-            <h1 className='text-2xl'>Balance</h1>
+          <div className="flex flex-row">
+            <div className="flex flex-col px-16">
+              <h1 className="text-center text-2xl">Top Collections</h1>
+              <span className="p-0.5 bg-purple-600 my-4"></span>
+              {NFTCollections && (
+                <>
+                  {NFTCollections.map((collection: NFTCollection) => (
+                    <ul className="list-disc" key={collection.token_address}>
+                      <li className="text-xl">{collection.collection_name}</li>
+                    </ul>
+                  ))}
+                </>
+              )}
+            </div>
+
+            <div className="flex flex-col px-16">
+              <h1 className="text-center text-2xl">Top NFTs</h1>
+              <span className="p-0.5 bg-purple-600 my-4"></span>
+              {NFTs && (
+                <>
+                  {NFTs.slice(0, 6).map((nft: NFTMetadata) => (
+                    <ul className="list-disc" key={nft.token_hash}>
+                      <li className="text-xl">{nft.name}</li>
+                    </ul>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
-          <div className="bg-gray-600 rounded-xl h-80">1</div>
-          <div className="bg-gray-600 rounded-xl h-80">1</div>
-          <div className="bg-gray-600 rounded-xl h-80">1</div>
-        </div> */}
+        </div>
       </div>
     </>
   );

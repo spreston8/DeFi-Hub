@@ -1,7 +1,7 @@
 import Moralis from 'moralis';
 import type { NFTCollection } from '@data/types';
 
-export default async function getWalletNfts(
+export default async function getWalletNFTCollections(
   walletAddress: string,
   chainIdHex: number
 ) {
@@ -32,7 +32,7 @@ export default async function getWalletNfts(
       };
 
       currNFTCollection.contract_type = currCollection.contract_type;
-      currNFTCollection.collection_name = currCollection.name;
+      currNFTCollection.collection_name = currCollection.name || 'Name not provided';
       currNFTCollection.collection_symbol = currCollection.symbol;
       currNFTCollection.token_address = currCollection.token_address;
 
@@ -64,7 +64,7 @@ export default async function getWalletNfts(
           };
 
           currNFTCollection.contract_type = currCollection.contract_type;
-          currNFTCollection.collection_name = currCollection.name;
+          currNFTCollection.collection_name = currCollection.name || 'Name not provided';
           currNFTCollection.collection_symbol = currCollection.symbol;
           currNFTCollection.token_address = currCollection.token_address;
 

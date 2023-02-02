@@ -13,7 +13,7 @@ export default function pool() {
 
       <div className="flex flex-col items-center justify-center mt-12">
         <h1 className="text-2xl text-[#858585] dark:text-gray-400">
-          Account Overview
+          Coming Soon
         </h1>
       </div>
     </>

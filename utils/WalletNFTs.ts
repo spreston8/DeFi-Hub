@@ -1,7 +1,7 @@
 import Moralis from 'moralis';
 import type { NFTMetadata } from '@data/types';
 
-export default async function getWalletNfts(
+export default async function getWalletNFTs(
   walletAddress: string,
   chainIdHex: number
 ) {
