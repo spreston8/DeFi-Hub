@@ -23,7 +23,7 @@ export default function nft({ web3Provider, chainIdHex }: Web3Params) {
 
       NFTMetadata();
     }
-  }, [web3Provider]);
+  }, [web3Provider, chainIdHex]);
 
   return (
     <>

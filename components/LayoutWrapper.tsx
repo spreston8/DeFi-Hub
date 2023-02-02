@@ -4,7 +4,7 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import headerNavLinks from '@data/headerNavLinks';
 import siteMetadata from '@data/siteMetadata';
-import getNetworkName from '@lib/Network';
+import getNetworkInfo from '@lib/Network';
 import type { HeaderLinks, LayoutWrapperParams } from '@data/types';
 
 function LayoutWrapper({
@@ -34,7 +34,10 @@ function LayoutWrapper({
         </div>
         <div className="flex items-center">
           <p className="pr-4 text-green-500">
-            {getNetworkName(parseInt(chainIdHex ? chainIdHex.toString() : '0'))}
+            {
+              getNetworkInfo(parseInt(chainIdHex ? chainIdHex.toString() : '0'))
+                .name
+            }
           </p>
           <p className="pr-4 text-blue-500">{address}</p>
           {web3Provider ? (
@@ -66,7 +69,7 @@ function LayoutWrapper({
       </div>
 
       <main className="mb-auto">{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
