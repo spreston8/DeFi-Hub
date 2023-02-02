@@ -40,6 +40,9 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
       doAsyncFunction();
     } else {
       setBalance('0');
+      setTotalNFTs(0);
+      setNFTs([]);
+      setNFTCollections([]);
     }
   }, [web3Provider, chainIdHex]);
 
