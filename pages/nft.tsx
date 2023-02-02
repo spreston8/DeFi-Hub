@@ -3,22 +3,22 @@ import type { Web3Params, NFTMetadata } from '@data/types';
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
 import NftCard from '@components/NftCard';
-import { getWalletNfts } from '@utils/WalletNFTs';
+import getWalletNfts from '@utils/WalletNFTs';
 
 export default function nft({ web3Provider, chainIdHex }: Web3Params) {
-  const [nftCollection, setNftCollection] = useState<NFTMetadata[]>([]);
-  const [loadingCollection, setLoadingCollection] = useState(false);
+  const [NFTs, setNFTs] = useState<NFTMetadata[]>([]);
+  const [loadingNFTs, setLoadingNFTs] = useState(false);
 
   useEffect(() => {
     if (web3Provider && chainIdHex) {
       const signer = web3Provider.getSigner();
 
       const NFTMetadata = async () => {
-        setLoadingCollection(true);
+        setLoadingNFTs(true);
         const address = await signer.getAddress();
         const walletNFTS = await getWalletNfts(address, chainIdHex);
-        setNftCollection(walletNFTS);
-        setLoadingCollection(false);
+        setNFTs(walletNFTS);
+        setLoadingNFTs(false);
       };
 
       NFTMetadata();
@@ -39,15 +39,15 @@ export default function nft({ web3Provider, chainIdHex }: Web3Params) {
       </div>
 
       <div className="flex flex-col items-center justify-center pt-12">
-        {loadingCollection && <p>Fetching your NFT(s)...</p>}
-        {nftCollection && (
+        {loadingNFTs && <p>Fetching your NFT(s)...</p>}
+        {NFTs && (
           <>
-            {nftCollection.map((nft: NFTMetadata) => (
+            {NFTs.map((nft: NFTMetadata) => (
               <NftCard key={nft.token_hash} nft={nft} />
             ))}
           </>
         )}
-        {!loadingCollection && !nftCollection.length && <p>No NFT(s) found.</p>}
+        {!loadingNFTs && !NFTs.length && <p>No NFT(s) found.</p>}
       </div>
     </>
   );

@@ -13,6 +13,13 @@ export type NFTMetadata = {
   symbol: string;
 };
 
+export type NFTCollection = {
+  contract_type: string;
+  collection_name: string;
+  collection_symbol: string;
+  token_address: string;
+};
+
 export type StateType = {
   provider?: any;
   web3Provider?: providers.Web3Provider;

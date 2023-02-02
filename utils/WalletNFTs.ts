@@ -1,9 +1,12 @@
 import Moralis from 'moralis';
 import type { NFTMetadata } from '@data/types';
 
-export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
+export default async function getWalletNfts(
+  walletAddress: string,
+  chainIdHex: number
+) {
   const apiKey = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
-  const NFT_COLLECTION: NFTMetadata[] = [];
+  const OWNED_NFTS: NFTMetadata[] = [];
 
   if (!Moralis.Core.isStarted) {
     await Moralis.start({
@@ -58,7 +61,7 @@ export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
         currNFTMetadata.attributes = 'attributes not provided';
       }
 
-      NFT_COLLECTION.push(currNFTMetadata);
+      OWNED_NFTS.push(currNFTMetadata);
     }
   }
 
@@ -115,8 +118,8 @@ export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
           }
 
           // make sure we don't push the same nft
-          if (!NFT_COLLECTION.includes(currNFTMetadata)) {
-            NFT_COLLECTION.push(currNFTMetadata);
+          if (!OWNED_NFTS.includes(currNFTMetadata)) {
+            OWNED_NFTS.push(currNFTMetadata);
           } else {
             console.log(
               `Token ID: ${currNFT.token_id} already in NFT COLLECTION`
@@ -129,5 +132,5 @@ export async function getWalletNfts(walletAddress: string, chainIdHex: number) {
     }
   }
 
-  return NFT_COLLECTION;
+  return OWNED_NFTS;
 }
