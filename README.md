@@ -21,3 +21,4 @@ Support chains:
 - ask to switch networks from ui
 - pull nft prices if for sale
 - display recent transactions
+- homepage display token amounts

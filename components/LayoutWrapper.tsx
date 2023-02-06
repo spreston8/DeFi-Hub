@@ -39,7 +39,17 @@ function LayoutWrapper({
                 .name
             }
           </p>
-          <p className="pr-4 text-blue-500">{address}</p>
+          <Link
+            href={`${
+              getNetworkInfo(parseInt(chainIdHex ? chainIdHex.toString() : '0'))
+                .explorer
+            }address/${address}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pr-4 text-blue-500 hover:underline"
+          >
+            {address}
+          </Link>
           {web3Provider ? (
             <button
               className={

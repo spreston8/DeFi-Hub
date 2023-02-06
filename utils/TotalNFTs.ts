@@ -12,22 +12,31 @@ export default async function getTotalNFTs(
     });
   }
 
-  const moralisResponseWalletNFTs = await Moralis.EvmApi.nft.getWalletNFTs({
-    address: walletAddress,
-    chain: chainIdHex,
-  });
-
-  const nfts = moralisResponseWalletNFTs.toJSON();
-
-  const moralisResponseWalletCollections =
-    await Moralis.EvmApi.nft.getWalletNFTs({
+  try {
+    const moralisResponseWalletNFTs = await Moralis.EvmApi.nft.getWalletNFTs({
       address: walletAddress,
       chain: chainIdHex,
     });
 
-  const collections = moralisResponseWalletCollections.toJSON();
-  return {
-    nft_count: nfts.result ? nfts.result.length : 0,
-    collection_count: collections.result ? collections.result.length : 0,
-  };
+    const nfts = moralisResponseWalletNFTs.toJSON();
+
+    const moralisResponseWalletCollections =
+      await Moralis.EvmApi.nft.getWalletNFTs({
+        address: walletAddress,
+        chain: chainIdHex,
+      });
+
+    const collections = moralisResponseWalletCollections.toJSON();
+
+    return {
+      nft_count: nfts.result ? nfts.result.length : 0,
+      collection_count: collections.result ? collections.result.length : 0,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      nft_count: 0,
+      collection_count: 0,
+    };
+  }
 }
