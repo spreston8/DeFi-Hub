@@ -65,3 +65,8 @@ export type HeaderLinks = {
   title: string;
   href: string;
 };
+
+export type TotalNFTs = {
+  nft_count: number;
+  collection_count: number;
+};

@@ -56,9 +56,9 @@ export default async function getWalletNFTs(
         );
         currNFTMetadata.attributes = jsonDescription.attributes;
       } else {
-        currNFTMetadata.name = 'nft name not provided';
-        currNFTMetadata.description = 'description not provided';
-        currNFTMetadata.attributes = 'attributes not provided';
+        currNFTMetadata.name = 'no_name';
+        currNFTMetadata.description = 'no_description';
+        currNFTMetadata.attributes = 'no_attributes';
       }
 
       OWNED_NFTS.push(currNFTMetadata);
@@ -112,9 +112,9 @@ export default async function getWalletNFTs(
             );
             currNFTMetadata.attributes = jsonDescription.attributes;
           } else {
-            currNFTMetadata.name = 'nft name not provided';
-            currNFTMetadata.description = 'description not provided';
-            currNFTMetadata.attributes = 'attributes not provided';
+            currNFTMetadata.name = 'no_name';
+            currNFTMetadata.description = 'no_description';
+            currNFTMetadata.attributes = 'no_attributes';
           }
 
           // make sure we don't push the same nft

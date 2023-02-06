@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
-import type { Web3Params, NFTMetadata } from '@data/types';
+import Link from 'next/link';
+import type { Web3Params, NFTMetadata, TotalNFTs } from '@data/types';
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
 import NftCard from '@components/NftCard';
 import getWalletNfts from '@utils/WalletNFTs';
+import getTotalNFTs from '@utils/TotalNFTs';
 
 export default function nft({ web3Provider, chainIdHex }: Web3Params) {
+  const [totalNFTs, setTotalNFTs] = useState<TotalNFTs>({
+    nft_count: 0,
+    collection_count: 0,
+  });
   const [NFTs, setNFTs] = useState<NFTMetadata[]>([]);
   const [loadingNFTs, setLoadingNFTs] = useState(false);
 
@@ -13,15 +19,19 @@ export default function nft({ web3Provider, chainIdHex }: Web3Params) {
     if (web3Provider && chainIdHex) {
       const signer = web3Provider.getSigner();
 
-      const NFTMetadata = async () => {
-        setLoadingNFTs(true);
+      const doAsyncFunction = async () => {
         const address = await signer.getAddress();
+
+        const _totalNFTs = await getTotalNFTs(address, chainIdHex);
+        setTotalNFTs(_totalNFTs);
+
+        setLoadingNFTs(true);
         const walletNFTS = await getWalletNfts(address, chainIdHex);
         setNFTs(walletNFTS);
         setLoadingNFTs(false);
       };
 
-      NFTMetadata();
+      doAsyncFunction();
     }
   }, [web3Provider, chainIdHex]);
 
@@ -34,20 +44,29 @@ export default function nft({ web3Provider, chainIdHex }: Web3Params) {
         previewPath=""
       />
 
-      <div className="flex flex-col items-center justify-center mt-12">
-        <h1 className="text-2xl text-[#858585] dark:text-gray-400">My NFTs</h1>
-      </div>
+      <div className="flex flex-col items-center bg-gray-600 mb-12 py-4 mx-20 my-20 rounded-xl">
+        <h1 className="text-5xl text-center mt-4">
+          {totalNFTs.nft_count} Owned NFTs in {totalNFTs.collection_count}{' '}
+          Collections
+        </h1>
 
-      <div className="flex flex-col items-center justify-center pt-12">
+        <div className="p-0.5 bg-purple-600 mt-4 mb-10 w-4/5"></div>
+
         {loadingNFTs && <p>Fetching your NFT(s)...</p>}
         {NFTs && (
           <>
-            {NFTs.map((nft: NFTMetadata) => (
-              <NftCard key={nft.token_hash} nft={nft} />
-            ))}
+            <div className="grid grid-cols-2 gap-x-10 mx-6">
+              {NFTs.map((nft: NFTMetadata) => (
+                <NftCard
+                  key={nft.token_hash}
+                  nft={nft}
+                  chainIdHex={chainIdHex}
+                />
+              ))}
+            </div>
           </>
         )}
-        {!loadingNFTs && !NFTs.length && <p>No NFT(s) found.</p>}
+        {!loadingNFTs && !NFTs.length && <p className="">No NFT(s) found.</p>}
       </div>
     </>
   );

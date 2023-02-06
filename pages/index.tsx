@@ -25,7 +25,7 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
 
         const address = await signer.getAddress();
         const _totalNFTs = await getTotalNFTs(address, chainIdHex);
-        setTotalNFTs(_totalNFTs);
+        setTotalNFTs(_totalNFTs.nft_count);
 
         const walletNFTS = await getWalletNFTs(address, chainIdHex);
         setNFTs(walletNFTS);
@@ -76,7 +76,8 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
         <div className="flex flex-col bg-gray-600 mb-12 py-4 rounded-xl">
           <Link
             href="/nft"
-            className="text-3xl text-center hover:text-blue-500"
+            scroll={false}
+            className="text-3xl text-center hover:text-blue-500 mx-auto"
           >
             {totalNFTs} Owned NFTs
           </Link>
