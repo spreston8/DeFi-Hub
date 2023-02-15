@@ -1,7 +1,14 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
+import { Web3Params } from '@data/types';
+import { crossChainSwap } from '@utils/CrossChainSwap';
+import getTotalNFTs from '@utils/TotalNFTs';
+import getWalletNFTCollections from '@utils/WalletNFTCollections';
+import getWalletNFTs from '@utils/WalletNFTs';
+import { ethers } from 'ethers';
+import { useEffect } from 'react';
 
-export default function swap() {
+export default function swap({ web3Provider, chainIdHex }: Web3Params) {
   return (
     <>
       <PageSeo
@@ -16,6 +23,27 @@ export default function swap() {
           Coming Soon
         </h1>
       </div>
+
+      {web3Provider ? (
+        <>
+          <button
+            className={
+              'text-md px-3 py-2 w-auto mt-6 rounded-lg text-white dark:text-black bg-[#0095D4] dark:bg-[#0095D4]'
+            }
+            onClick={async () => {
+              if (web3Provider && chainIdHex) {
+                const signer = web3Provider.getSigner();
+                await crossChainSwap(signer);
+              } else {
+              }
+            }}
+          >
+            Swap
+          </button>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
