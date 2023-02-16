@@ -48,7 +48,7 @@ function printTx(txDetails: TxDetails, input: CryptoAmount) {
 const doSingleSwap = async (tcAmm: ThorchainAMM, wallet: Wallet) => {
   try {
     const amount = 1000;
-    const fromAsset = assetFromStringEx(`ETH.ETH`);
+    const fromAsset = assetFromStringEx(`THOR.RUNE`);
     const toAsset = assetFromStringEx(`BTC.BTC`);
 
     // const fromChain = fromAsset.synth ? Chain.THORChain : fromAsset.chain
