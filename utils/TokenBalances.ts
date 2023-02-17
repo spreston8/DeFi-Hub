@@ -1,13 +1,13 @@
 import Moralis from 'moralis';
 import { ethers } from 'ethers';
-import type { TokenBalances } from '@data/types';
+import type { TokenBalance } from '@data/types';
 import getNetworkInfo from '@lib/Network';
 
 export default async function getTokenBalances(
   signer: ethers.Signer,
   chainIdHex: number
 ) {
-  const TOKEN_BALANCES: TokenBalances[] = [];
+  const TOKEN_BALANCES: TokenBalance[] = [];
   const nativeBalance = await signer.getBalance();
   const currNetwork = getNetworkInfo(parseInt(chainIdHex.toString()));
 

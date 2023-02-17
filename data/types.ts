@@ -71,7 +71,7 @@ export type TotalNFTs = {
   collection_count: number;
 };
 
-export type TokenBalances = {
+export type TokenBalance = {
   balance: string;
   name: string;
   symbol: string;

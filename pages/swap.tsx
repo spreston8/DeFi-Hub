@@ -18,12 +18,6 @@ export default function swap({ web3Provider, chainIdHex }: Web3Params) {
         previewPath=""
       />
 
-      <div className="flex flex-col items-center justify-center mt-12">
-        <h1 className="text-2xl text-[#858585] dark:text-gray-400">
-          Coming Soon
-        </h1>
-      </div>
-
       {web3Provider ? (
         <>
           <button

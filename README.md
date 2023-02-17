@@ -1,13 +1,21 @@
 # DeFi-Hub
 
-Support chains:
+## Quickstart
+
+1. Clone project
+2. Run `npm i`
+3. Add `NEXT_PUBLIC_MORALIS_API_KEY=<your_api_key>` to `.env`
+
+<br>
+
+### Support chains:
 
 - Ethereum
-- Goerli (Ethereum Testnet)
+- Goerli 
 - BSC
 - BSC Testnet
 - Polygon
-- Mumbai (Polygon Testnet)
+- Mumbai 
 
 ## To-Do / Notes
 

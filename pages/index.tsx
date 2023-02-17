@@ -10,13 +10,13 @@ import type {
   Web3Params,
   NFTCollection,
   NFTMetadata,
-  TokenBalances,
+  TokenBalance,
 } from '@data/types';
 import getWalletNFTs from '@utils/WalletNFTs';
 import getTokenBalances from '@utils/TokenBalances';
 
 export default function Home({ web3Provider, chainIdHex }: Web3Params) {
-  const [tokenBalances, setTokenBalances] = useState<TokenBalances[]>([]);
+  const [tokenBalances, setTokenBalances] = useState<TokenBalance[]>([]);
   const [totalNFTs, setTotalNFTs] = useState(0);
   const [walletNFTs, setWalletNFTs] = useState<NFTMetadata[]>([]);
   const [walletNFTCollections, setWalletNFTCollections] = useState<
@@ -75,7 +75,7 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
 
           {tokenBalances && (
             <>
-              {tokenBalances.map((tokenBalance: TokenBalances) => (
+              {tokenBalances.map((tokenBalance: TokenBalance) => (
                 <p
                   key={tokenBalance.name}
                   className="text-3xl text-center py-4"
