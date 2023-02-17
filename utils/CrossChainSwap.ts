@@ -151,7 +151,7 @@ export async function crossChainSwap(signer: ethers.Signer) {
   const qty = ethers.BigNumber.from(10);
   const qtyMin = qty.mul(993).div(1000);
   const approved = await approveTokens(signer, routerContractAddress, qty);
-  console.log(approved);
+  // console.log(approved);
 
   if (approved) {
     try {

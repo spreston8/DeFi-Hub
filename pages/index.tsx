@@ -6,43 +6,52 @@ import { PageSeo } from '@components/SEO';
 import getNetworkInfo from '@lib/Network';
 import getWalletNFTCollections from '@utils/WalletNFTCollections';
 import getTotalNFTs from '@utils/TotalNFTs';
-import type { Web3Params, NFTCollection, NFTMetadata } from '@data/types';
+import type {
+  Web3Params,
+  NFTCollection,
+  NFTMetadata,
+  TokenBalances,
+} from '@data/types';
 import getWalletNFTs from '@utils/WalletNFTs';
+import getTokenBalances from '@utils/TokenBalances';
 
 export default function Home({ web3Provider, chainIdHex }: Web3Params) {
-  const [balance, setBalance] = useState('0');
+  const [tokenBalances, setTokenBalances] = useState<TokenBalances[]>([]);
   const [totalNFTs, setTotalNFTs] = useState(0);
-  const [NFTs, setNFTs] = useState<NFTMetadata[]>([]);
-  const [NFTCollections, setNFTCollections] = useState<NFTCollection[]>([]);
+  const [walletNFTs, setWalletNFTs] = useState<NFTMetadata[]>([]);
+  const [walletNFTCollections, setWalletNFTCollections] = useState<
+    NFTCollection[]
+  >([]);
 
   useEffect(() => {
     if (web3Provider && chainIdHex) {
       const signer = web3Provider.getSigner();
 
       const doAsyncFunction = async () => {
-        const _balance = await signer.getBalance();
-        setBalance(ethers.utils.formatEther(_balance));
-
         const address = await signer.getAddress();
+
+        const _tokenBalances = await getTokenBalances(signer, chainIdHex);
+        setTokenBalances(_tokenBalances);
+
         const _totalNFTs = await getTotalNFTs(address, chainIdHex);
         setTotalNFTs(_totalNFTs.nft_count);
 
-        const walletNFTS = await getWalletNFTs(address, chainIdHex);
-        setNFTs(walletNFTS);
+        const _walletNFTS = await getWalletNFTs(address, chainIdHex);
+        setWalletNFTs(_walletNFTS);
 
-        const _NFTCollections = await getWalletNFTCollections(
+        const _walletNFTCollections = await getWalletNFTCollections(
           address,
           chainIdHex
         );
-        setNFTCollections(_NFTCollections);
+        setWalletNFTCollections(_walletNFTCollections);
       };
 
       doAsyncFunction();
     } else {
-      setBalance('0');
+      setTokenBalances([]);
       setTotalNFTs(0);
-      setNFTs([]);
-      setNFTCollections([]);
+      setWalletNFTs([]);
+      setWalletNFTCollections([]);
     }
   }, [web3Provider, chainIdHex]);
 
@@ -60,17 +69,28 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
           Account Overview
         </h1>
 
-        <div className="flex bg-gray-600 my-12 py-4 rounded-xl">
-          <h1 className="text-3xl px-20 text-center">
+        <div className="flex flex-col bg-gray-600 my-12 px-20 py-4 rounded-xl">
+          <h1 className="text-center text-3xl">Token Balances</h1>
+          <span className="p-0.5 bg-purple-600 my-4"></span>
+
+          {tokenBalances && (
             <>
-              Balance: {parseFloat(balance).toFixed(4)}{' '}
-              {
-                getNetworkInfo(
-                  parseInt(chainIdHex ? chainIdHex.toString() : '0')
-                ).symbol
-              }
+              {tokenBalances.map((tokenBalance: TokenBalances) => (
+                <p
+                  key={tokenBalance.name}
+                  className="text-3xl text-center py-4"
+                >
+                  {parseFloat(
+                    ethers.utils.formatUnits(
+                      tokenBalance.balance,
+                      tokenBalance.decimals
+                    )
+                  ).toFixed(5)}{' '}
+                  {tokenBalance.symbol}
+                </p>
+              ))}
             </>
-          </h1>
+          )}
         </div>
 
         <div className="flex flex-col bg-gray-600 mb-12 py-4 rounded-xl">
@@ -88,9 +108,9 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
             <div className="flex flex-col px-16">
               <h1 className="text-center text-2xl">Top Collections</h1>
               <span className="p-0.5 bg-purple-600 my-4"></span>
-              {NFTCollections && (
+              {walletNFTCollections && (
                 <>
-                  {NFTCollections.map((collection: NFTCollection) => (
+                  {walletNFTCollections.map((collection: NFTCollection) => (
                     <ul className="list-disc" key={collection.token_address}>
                       <li className="text-xl">{collection.collection_name}</li>
                     </ul>
@@ -102,9 +122,9 @@ export default function Home({ web3Provider, chainIdHex }: Web3Params) {
             <div className="flex flex-col px-16">
               <h1 className="text-center text-2xl">Top NFTs</h1>
               <span className="p-0.5 bg-purple-600 my-4"></span>
-              {NFTs && (
+              {walletNFTs && (
                 <>
-                  {NFTs.slice(0, 6).map((nft: NFTMetadata) => (
+                  {walletNFTs.slice(0, 6).map((nft: NFTMetadata) => (
                     <ul className="list-disc" key={nft.token_hash}>
                       <li className="text-xl">{nft.name}</li>
                     </ul>

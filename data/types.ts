@@ -70,3 +70,10 @@ export type TotalNFTs = {
   nft_count: number;
   collection_count: number;
 };
+
+export type TokenBalances = {
+  balance: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+};
