@@ -77,3 +77,8 @@ export type TokenBalance = {
   symbol: string;
   decimals: number;
 };
+
+export type EventHandler = {
+  key: (e: React.KeyboardEvent) => void;
+  preventDefault: () => void;
+};
