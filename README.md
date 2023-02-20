@@ -30,3 +30,4 @@
 - pull nft prices if for sale
 - display recent transactions
 - homepage display token amounts
+- loading icon for nft images

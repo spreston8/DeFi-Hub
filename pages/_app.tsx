@@ -144,6 +144,8 @@ function _App({ Component, pageProps }: AppProps) {
       >
         <Component
           {...pageProps}
+          connect={connect}
+          disconnect={disconnect}
           web3Provider={web3Provider}
           chainIdHex={chainIdHex}
         />

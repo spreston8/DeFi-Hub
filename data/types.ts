@@ -48,6 +48,8 @@ export type ActionType =
     };
 
 export type Web3Params = {
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
   web3Provider: providers.Web3Provider;
   chainIdHex?: number;
 };

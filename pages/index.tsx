@@ -15,7 +15,12 @@ import type {
 import getWalletNFTs from '@utils/WalletNFTs';
 import getTokenBalances from '@utils/TokenBalances';
 
-export default function Home({ web3Provider, chainIdHex }: Web3Params) {
+export default function Home({
+  connect,
+  disconnect,
+  web3Provider,
+  chainIdHex,
+}: Web3Params) {
   const [tokenBalances, setTokenBalances] = useState<TokenBalance[]>([]);
   const [totalNFTs, setTotalNFTs] = useState(0);
   const [walletNFTs, setWalletNFTs] = useState<NFTMetadata[]>([]);
