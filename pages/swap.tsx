@@ -5,6 +5,8 @@ import { crossChainSwap } from '@utils/CrossChainSwap';
 import Form from '@components/Form';
 import Dropdown from '@components/Dropdown';
 import { useEffect, useState } from 'react';
+import getNetworkInfo from '@lib/Network';
+import DoubleDownArrow from '../public/img/double_down_arrow.svg';
 
 export default function swap({
   connect,
@@ -13,6 +15,10 @@ export default function swap({
   chainIdHex,
 }: Web3Params) {
   const [codeInput, setCodeInput] = useState('');
+  const [fromDropdown, setFromDropdown] = useState<string[]>([]);
+  const [toDropdown, setToDropdown] = useState<string[]>([]);
+  const [fromAsset, setFromAsset] = useState('TOKEN');
+  const [toAsset, setToAsset] = useState('TOKEN');
 
   useEffect(() => {
     const keyDownHandler: any = async (event: EventHandler) => {
@@ -29,6 +35,20 @@ export default function swap({
 
   useEffect(() => {
     if (web3Provider && chainIdHex) {
+      const chainId = parseInt(chainIdHex.toString());
+      if (chainId === 1) {
+        setFromDropdown(['ETHEREUM-USDC', 'ETHEREUM-USDT']);
+        setToDropdown(['BSC-BUSD', 'BSC-USDT']);
+      } else if (chainId === 5) {
+        setFromDropdown(['GOERLI-USDC', 'GOERLI-USDT']);
+        setToDropdown(['BSC_TESTNET-BUSD', 'BSC_TESTNET-USDT']);
+      } else if (chainId === 56) {
+        setFromDropdown(['BSC-BUSD', 'BSC-USDT']);
+        setToDropdown(['ETHEREUM-USDC', 'ETHEREUM-USDT']);
+      } else if (chainId === 97) {
+        setFromDropdown(['BSC_TESTNET-USDT', 'BSC_TESTNET-BUSD']);
+        setToDropdown(['GOERLI-USDC', 'GOERLI-USDT']);
+      }
     }
   }, [chainIdHex, web3Provider]);
 
@@ -57,9 +77,15 @@ export default function swap({
                   placeholder="0"
                 />
               </div>
-              <Dropdown />
+              <Dropdown
+                setItem={setFromAsset}
+                defaultValue={fromAsset}
+                dropdownItems={fromDropdown}
+              />
             </div>
           </div>
+
+          <DoubleDownArrow className="mt-6 h-10 w-10" />
 
           <div className="flex flex-col mt-6">
             {/* <p className="text-xl text-left pl-2">From:</p> */}
@@ -71,7 +97,11 @@ export default function swap({
                   placeholder="0"
                 />
               </div>
-              <Dropdown />
+              <Dropdown
+                setItem={setToAsset}
+                defaultValue={toAsset}
+                dropdownItems={toDropdown}
+              />
             </div>
           </div>
 

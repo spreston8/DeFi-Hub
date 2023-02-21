@@ -1,59 +1,41 @@
 import { useState } from 'react';
 
-export default function Dropdown() {
+export default function Dropdown({
+  setItem,
+  defaultValue,
+  dropdownItems,
+}: DropdownProps) {
   const [showItems, setShowItems] = useState(false);
 
   return (
     <div className="">
       <button
-        id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
-        className="text-white bg-blue-700 font-medium rounded-lg text-3xl px-4 py-2.5 text-center inline-flex items-center"
+        className="text-white bg-blue-700 font-medium rounded-lg text-xl w-52 py-2.5 text-center items-center"
         type="button"
         onClick={() => setShowItems(!showItems)}
       >
-        Dropdown
+        {defaultValue}
       </button>
       {/* <!-- Dropdown menu --> */}
       {showItems ? (
         <>
-          <div
-            id="dropdown"
-            className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute"
-          >
-            <ul className="py-2 text-xl text-gray-700 dark:text-gray-200">
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Earnings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  Sign out
-                </a>
-              </li>
+          <div className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-56 dark:bg-gray-700 absolute">
+            <ul className="flex flex-col items-center py-2 text-xl text-gray-700 dark:text-gray-200">
+              {dropdownItems && (
+                <>
+                  {dropdownItems.map((item: string) => (
+                    <li key={item} className="">
+                      <button
+                        className="py-2 hover:text-blue-500"
+                        onClick={() => setItem(item)}
+                      >
+                        {item}
+                      </button>
+                    </li>
+                  ))}
+                </>
+              )}
             </ul>
           </div>
         </>
@@ -63,3 +45,9 @@ export default function Dropdown() {
     </div>
   );
 }
+
+type DropdownProps = {
+  setItem: (value: React.SetStateAction<string>) => void;
+  defaultValue: string;
+  dropdownItems: string[];
+};
