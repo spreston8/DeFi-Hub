@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import getNetworkInfo from '@lib/Network';
 import DoubleDownArrow from '../public/img/double_down_arrow.svg';
 
-export default function swap({
+export default function Swap({
   connect,
   disconnect,
   web3Provider,

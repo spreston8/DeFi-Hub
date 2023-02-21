@@ -1,7 +1,7 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
 
-export default function pool() {
+export default function Pool() {
   return (
     <>
       <PageSeo

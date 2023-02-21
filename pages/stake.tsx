@@ -1,7 +1,7 @@
 import siteMetadata from '@data/siteMetadata';
 import { PageSeo } from '@components/SEO';
 
-export default function stake() {
+export default function Stake() {
   return (
     <>
       <PageSeo
