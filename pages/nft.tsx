@@ -7,7 +7,7 @@ import NftCard from '@components/NftCard';
 import getWalletNfts from '@utils/WalletNFTs';
 import getTotalNFTs from '@utils/TotalNFTs';
 
-export default function nft({
+export default function Nft({
   connect,
   disconnect,
   web3Provider,
@@ -55,7 +55,7 @@ export default function nft({
         <div className="flex flex-col items-center bg-gray-600 mb-12 py-4 mx-20 my-20 rounded-xl">
           <h1 className="text-5xl text-center mt-4">
             {totalNFTs.nft_count} Owned NFTs in {totalNFTs.collection_count}{' '}
-            Collection
+            Collections
           </h1>
 
           <div className="p-0.5 bg-purple-600 mt-4 mb-10 w-4/5"></div>

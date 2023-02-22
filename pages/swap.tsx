@@ -62,7 +62,7 @@ export default function Swap({
         previewPath=""
       />
 
-      {web3Provider ? (
+      {web3Provider && chainId ? (
         <div className="flex flex-col items-center bg-gray-600 my-12 mx-52 py-4 rounded-xl">
           <h1 className="text-5xl">Swap</h1>
 
@@ -109,11 +109,8 @@ export default function Swap({
               'text-md px-3 py-2 w-auto mt-6 rounded-lg text-white dark:text-black bg-[#0095D4] dark:bg-[#0095D4]'
             }
             onClick={async () => {
-              if (web3Provider && chainId) {
-                const signer = web3Provider.getSigner();
-                await crossChainSwap(signer);
-              } else {
-              }
+              const signer = web3Provider.getSigner();
+              await crossChainSwap(signer, chainId, fromAsset, toAsset, 10);
             }}
           >
             Swap
