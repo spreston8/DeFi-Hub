@@ -140,14 +140,14 @@ function _App({ Component, pageProps }: AppProps) {
         disconnect={disconnect}
         web3Provider={web3Provider}
         address={address}
-        chainIdHex={chainIdHex}
+        chainId={parseInt(chainIdHex ? chainIdHex.toString() : '0')}
       >
         <Component
           {...pageProps}
           connect={connect}
           disconnect={disconnect}
           web3Provider={web3Provider}
-          chainIdHex={chainIdHex}
+          chainId={parseInt(chainIdHex ? chainIdHex.toString() : '0')}
         />
       </LayoutWrapper>
     </>

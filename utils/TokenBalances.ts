@@ -5,11 +5,11 @@ import getNetworkInfo from '@lib/Network';
 
 export default async function getTokenBalances(
   signer: ethers.Signer,
-  chainIdHex: number
+  chainId: number
 ) {
   const TOKEN_BALANCES: TokenBalance[] = [];
   const nativeBalance = await signer.getBalance();
-  const currNetwork = getNetworkInfo(parseInt(chainIdHex.toString()));
+  const currNetwork = getNetworkInfo(chainId);
 
   TOKEN_BALANCES.push({
     balance: nativeBalance.toString(),
@@ -31,7 +31,7 @@ export default async function getTokenBalances(
     const moralisResponseWalletTokenBalances =
       await Moralis.EvmApi.token.getWalletTokenBalances({
         address: userAddress,
-        chain: chainIdHex,
+        chain: chainId,
       });
 
     const tokens = moralisResponseWalletTokenBalances.toJSON();

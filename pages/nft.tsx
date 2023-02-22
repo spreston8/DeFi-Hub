@@ -11,7 +11,7 @@ export default function nft({
   connect,
   disconnect,
   web3Provider,
-  chainIdHex,
+  chainId,
 }: Web3Params) {
   const [totalNFTs, setTotalNFTs] = useState<TotalNFTs>({
     nft_count: 0,
@@ -21,17 +21,17 @@ export default function nft({
   const [loadingNFTs, setLoadingNFTs] = useState(false);
 
   useEffect(() => {
-    if (web3Provider && chainIdHex) {
+    if (web3Provider && chainId) {
       const signer = web3Provider.getSigner();
 
       const doAsyncFunction = async () => {
         const address = await signer.getAddress();
 
-        const _totalNFTs = await getTotalNFTs(address, chainIdHex);
+        const _totalNFTs = await getTotalNFTs(address, chainId);
         setTotalNFTs(_totalNFTs);
 
         setLoadingNFTs(true);
-        const walletNFTS = await getWalletNfts(address, chainIdHex);
+        const walletNFTS = await getWalletNfts(address, chainId);
         setNFTs(walletNFTS);
         setLoadingNFTs(false);
       };
@@ -40,7 +40,7 @@ export default function nft({
     } else {
       setNFTs([]);
     }
-  }, [web3Provider, chainIdHex]);
+  }, [web3Provider, chainId]);
 
   return (
     <>
@@ -68,7 +68,7 @@ export default function nft({
                   <NftCard
                     key={nft.token_hash}
                     nft={nft}
-                    chainIdHex={chainIdHex}
+                    chainId={chainId}
                   />
                 ))}
               </div>

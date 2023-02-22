@@ -19,7 +19,7 @@ export default function Home({
   connect,
   disconnect,
   web3Provider,
-  chainIdHex,
+  chainId,
 }: Web3Params) {
   const [tokenBalances, setTokenBalances] = useState<TokenBalance[]>([]);
   const [totalNFTs, setTotalNFTs] = useState(0);
@@ -29,24 +29,24 @@ export default function Home({
   >([]);
 
   useEffect(() => {
-    if (web3Provider && chainIdHex) {
+    if (web3Provider && chainId) {
       const signer = web3Provider.getSigner();
 
       const doAsyncFunction = async () => {
         const address = await signer.getAddress();
 
-        const _tokenBalances = await getTokenBalances(signer, chainIdHex);
+        const _tokenBalances = await getTokenBalances(signer, chainId);
         setTokenBalances(_tokenBalances);
 
-        const _totalNFTs = await getTotalNFTs(address, chainIdHex);
+        const _totalNFTs = await getTotalNFTs(address, chainId);
         setTotalNFTs(_totalNFTs.nft_count);
 
-        const _walletNFTS = await getWalletNFTs(address, chainIdHex);
+        const _walletNFTS = await getWalletNFTs(address, chainId);
         setWalletNFTs(_walletNFTS);
 
         const _walletNFTCollections = await getWalletNFTCollections(
           address,
-          chainIdHex
+          chainId
         );
         setWalletNFTCollections(_walletNFTCollections);
       };
@@ -58,7 +58,7 @@ export default function Home({
       setWalletNFTs([]);
       setWalletNFTCollections([]);
     }
-  }, [web3Provider, chainIdHex]);
+  }, [web3Provider, chainId]);
 
   return (
     <>

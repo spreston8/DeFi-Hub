@@ -3,7 +3,7 @@ import type { NFTCollection } from '@data/types';
 
 export default async function getWalletNFTCollections(
   walletAddress: string,
-  chainIdHex: number
+  chainId: number
 ) {
   const apiKey = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
   const NFT_COLLECTIONS: NFTCollection[] = [];
@@ -17,7 +17,7 @@ export default async function getWalletNFTCollections(
   try {
     const moralisResponse = await Moralis.EvmApi.nft.getWalletNFTCollections({
       address: walletAddress,
-      chain: chainIdHex,
+      chain: chainId,
     });
 
     const collections = moralisResponse.toJSON();
@@ -51,7 +51,7 @@ export default async function getWalletNFTCollections(
         const moralisResponse =
           await Moralis.EvmApi.nft.getWalletNFTCollections({
             address: walletAddress,
-            chain: chainIdHex,
+            chain: chainId,
             cursor: cursor,
           });
 

@@ -2,7 +2,7 @@ import Moralis from 'moralis';
 
 export default async function getTotalNFTs(
   walletAddress: string,
-  chainIdHex: number
+  chainId: number
 ) {
   const apiKey = process.env.NEXT_PUBLIC_MORALIS_API_KEY;
 
@@ -15,7 +15,7 @@ export default async function getTotalNFTs(
   try {
     const moralisResponseWalletNFTs = await Moralis.EvmApi.nft.getWalletNFTs({
       address: walletAddress,
-      chain: chainIdHex,
+      chain: chainId,
     });
 
     const nfts = moralisResponseWalletNFTs.toJSON();
@@ -23,7 +23,7 @@ export default async function getTotalNFTs(
     const moralisResponseWalletCollections =
       await Moralis.EvmApi.nft.getWalletNFTs({
         address: walletAddress,
-        chain: chainIdHex,
+        chain: chainId,
       });
 
     const collections = moralisResponseWalletCollections.toJSON();

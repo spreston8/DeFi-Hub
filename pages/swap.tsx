@@ -12,7 +12,7 @@ export default function Swap({
   connect,
   disconnect,
   web3Provider,
-  chainIdHex,
+  chainId,
 }: Web3Params) {
   const [codeInput, setCodeInput] = useState('');
   const [fromDropdown, setFromDropdown] = useState<string[]>([]);
@@ -34,8 +34,7 @@ export default function Swap({
   }, [codeInput]);
 
   useEffect(() => {
-    if (web3Provider && chainIdHex) {
-      const chainId = parseInt(chainIdHex.toString());
+    if (web3Provider && chainId) {
       if (chainId === 1) {
         setFromDropdown(['ETHEREUM-USDC', 'ETHEREUM-USDT']);
         setToDropdown(['BSC-BUSD', 'BSC-USDT']);
@@ -50,7 +49,7 @@ export default function Swap({
         setToDropdown(['GOERLI-USDC', 'GOERLI-USDT']);
       }
     }
-  }, [chainIdHex, web3Provider]);
+  }, [chainId, web3Provider]);
 
   async function onSubmit(_prompt: string) {}
 
@@ -110,7 +109,7 @@ export default function Swap({
               'text-md px-3 py-2 w-auto mt-6 rounded-lg text-white dark:text-black bg-[#0095D4] dark:bg-[#0095D4]'
             }
             onClick={async () => {
-              if (web3Provider && chainIdHex) {
+              if (web3Provider && chainId) {
                 const signer = web3Provider.getSigner();
                 await crossChainSwap(signer);
               } else {

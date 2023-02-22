@@ -4,11 +4,8 @@ import Link from 'next/link';
 import getNetworkInfo from '@lib/Network';
 import type { NFTMetadata } from '@data/types';
 
-export default function NftCard(props: {
-  nft: NFTMetadata;
-  chainIdHex?: number;
-}) {
-  const { nft, chainIdHex } = props;
+export default function NftCard(props: { nft: NFTMetadata; chainId: number }) {
+  const { nft, chainId } = props;
 
   return (
     <div className="flex bg-slate-700 rounded-3xl mb-14 drop-shadow-lg">
@@ -50,11 +47,9 @@ export default function NftCard(props: {
             <p className="text-lg pt-4">
               <strong>Collection: </strong>
               <Link
-                href={`${
-                  getNetworkInfo(
-                    parseInt(chainIdHex ? chainIdHex.toString() : '0')
-                  ).explorer
-                }address/${nft.token_address}#code`}
+                href={`${getNetworkInfo(chainId).explorer}address/${
+                  nft.token_address
+                }#code`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-blue-500"

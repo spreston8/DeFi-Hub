@@ -13,7 +13,7 @@ function LayoutWrapper({
   disconnect,
   web3Provider,
   address,
-  chainIdHex,
+  chainId,
 }: LayoutWrapperParams) {
   return (
     <div className="overflow-x-hidden max-w-lg xs:max-w-xl md:max-w-3xl lg:max-w-7xl xl:max-w-[80%] px-4 mx-auto md:px-6 xl:px-0">
@@ -33,17 +33,9 @@ function LayoutWrapper({
           ))}
         </div>
         <div className="flex items-center">
-          <p className="pr-4 text-green-500">
-            {
-              getNetworkInfo(parseInt(chainIdHex ? chainIdHex.toString() : '0'))
-                .name
-            }
-          </p>
+          <p className="pr-4 text-green-500">{getNetworkInfo(chainId).name}</p>
           <Link
-            href={`${
-              getNetworkInfo(parseInt(chainIdHex ? chainIdHex.toString() : '0'))
-                .explorer
-            }address/${address}`}
+            href={`${getNetworkInfo(chainId).explorer}address/${address}`}
             target="_blank"
             rel="noopener noreferrer"
             className="pr-4 text-blue-500 hover:underline"

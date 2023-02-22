@@ -51,7 +51,7 @@ export type Web3Params = {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
   web3Provider: providers.Web3Provider;
-  chainIdHex?: number;
+  chainId: number;
 };
 
 export type LayoutWrapperParams = {
@@ -60,7 +60,7 @@ export type LayoutWrapperParams = {
   disconnect: () => Promise<void>;
   web3Provider?: providers.Web3Provider;
   address?: string;
-  chainIdHex?: number;
+  chainId: number;
 };
 
 export type HeaderLinks = {
